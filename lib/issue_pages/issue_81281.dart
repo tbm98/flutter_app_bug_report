@@ -11,6 +11,7 @@ class _Issue81281State extends State<Issue81281> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
