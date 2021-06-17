@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_app_bug_report/issue_pages/issue_81281.dart';
+import 'package:flutter_app_bug_report/issue_pages/vscode_console_error.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'issue_pages/provider_listener_issue.dart';
@@ -56,6 +57,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   }));
                 },
                 child: Text('ProviderListener issue')),
+                TextButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return VSCodeConsoleError();
+                  }));
+                },
+                child: Text('vscode console error')),
             Text(
               'issue',
             ),
