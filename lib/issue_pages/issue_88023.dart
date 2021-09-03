@@ -23,7 +23,7 @@ Future<LoyaltyProfile?> execute() async {
   final LoyaltyProfile? result = _mapper?.from(response).copyWith();
   return result?.copyWith(
     // still work without fix analysis
-    hasPromotion: result.promotionsResources?.isNotEmpty == true,
-    promotionsResources: result.promotionsResources,
+    hasPromotion: result?.promotionsResources?.isNotEmpty == true,
+    promotionsResources: result?.promotionsResources,
   );
 }

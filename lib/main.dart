@@ -1,11 +1,9 @@
-import 'dart:ui';
-
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app_bug_report/issue_pages/issue_81281.dart';
+import 'package:flutter_app_bug_report/issue_pages/reverpod_1.0_dev7_override_value_issue.dart';
 import 'package:flutter_app_bug_report/issue_pages/vscode_console_error.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'issue_pages/provider_listener_issue.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -25,14 +23,14 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends ConsumerStatefulWidget {
   MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,44 +51,18 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
                 onPressed: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ProviderListenerIssue();
-                  }));
-                },
-                child: Text('ProviderListener issue')),
-                TextButton(
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return VSCodeConsoleError();
                   }));
                 },
                 child: Text('vscode console error')),
-            Text(
-              'issue',
-            ),
-            Container(
-                color: Colors.red.shade100,
-                child: Text(
-                  'Hello world 0 ',
-                  style: TextStyle(
-                    height: 3,
-                    fontSize: 30,
-                  ),
-                )),
-            SizedBox(
-              height: 16,
-            ),
-            Text('expected'),
-            Container(
-                color: Colors.red.shade100,
-                height: 90,
-                child: Center(
+            OpenContainer(closedBuilder: (context, open) {
+              return TextButton(
+                  onPressed: open,
                   child: Text(
-                    'Hello world 0 ',
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                ))
+                      'Riverpod override issue'));
+            }, openBuilder: (context, close) {
+              return RiverpodOverrideIssue();
+            }),
           ],
         ),
       ),
