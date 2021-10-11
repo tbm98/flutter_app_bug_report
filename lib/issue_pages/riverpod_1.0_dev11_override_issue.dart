@@ -6,13 +6,16 @@ class counterNotifier extends StateNotifier<int> {
   counterNotifier(int value) : super(value);
 }
 
-final counterProvider =
+final counter2Provider =
     StateNotifierProvider.autoDispose<counterNotifier, int>((ref) {
+  ref.onDispose(() {
+    print('counter2 dispose'); // never call
+  });
   throw UnimplementedError();
 });
 
-class RiverpodOverrideIssue extends ConsumerWidget {
-  const RiverpodOverrideIssue({
+class RiverpodOverrideIssue2 extends ConsumerWidget {
+  const RiverpodOverrideIssue2({
     Key? key,
   }) : super(key: key);
 
@@ -25,7 +28,7 @@ class RiverpodOverrideIssue extends ConsumerWidget {
           children: [
             // overrideWithValue is not
             ProviderScope(overrides: [
-              counterProvider.overrideWithValue(counterNotifier(11))
+              counter2Provider.overrideWithValue(counterNotifier(11))
             ], child: Counter()),
           ],
         ),
@@ -41,20 +44,7 @@ class Counter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(counterProvider);
-    return Column(
-      children: [
-        Text('$count'),
-        ChildCounter(),
-      ],
-    );
-  }
-}
-
-class ChildCounter extends ConsumerWidget {
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(counterProvider);
-    return Text('it\'s child counter $count');
+    final count = ref.watch(counter2Provider);
+    return Text('$count');
   }
 }
